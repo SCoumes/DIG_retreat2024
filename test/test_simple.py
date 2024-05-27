@@ -9,3 +9,7 @@ def test_encoderSimple():
 def test_wordToInt():
     from utils import wordToId
     assert(wordToId("Purple") == 115)
+
+def test_encodeHardcoded():
+    from main import encodeConcept
+    assert(encodeConcept("Virus") == [[47, 97, 97, 97], [], [], [], []])

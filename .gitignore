@@ -168,3 +168,6 @@ cython_debug/
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+*/__pycache__/*
+test/__pycache__/test_simple.cpython-310-pytest-8.2.0.pyc
