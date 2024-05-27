@@ -1,3 +1,5 @@
+from os.path import join
+
 import pandas as pd
 import re 
 
@@ -13,17 +15,16 @@ nltk.download('omw-1.4')
 
 
 # Define the path to your .tsv file
-file_path = "list-yago-types.tsv"
+file_path_prefix = "What-Mark-Giveth"
+file_path = join(file_path_prefix,"list-yago-types.tsv")
+file_path_facts = join(file_path_prefix,"list-yago-facts.tsv")
+file_path = join(file_path_prefix,"yago-taxonomy.tsv")
 
 # Read the .tsv file into a DataFrame
 df = pd.read_csv(file_path, sep="\t", header=None)
 
-file_path_facts = "list-yago-facts.tsv"
-
 # Read the .tsv file into a DataFrame
 df_facts = pd.read_csv(file_path_facts, sep="\t", header=None)
-
-file_path = "yago-taxonomy.tsv"
 
 # Read the .tsv file into a DataFrame getting rid of the first 34 rows
 taxonomy = pd.read_csv(file_path, sep="\t", header=None, skiprows=34)
