@@ -51,19 +51,20 @@ def get_main_label(word, df_yago):
     else:
         return None
 
-def get_all_parents_from_main_label(label, taxonomy):
-    # check if the label is in the taxonomy DataFrame in column 0
-    if label is None:
-        return None
-    if label in taxonomy[0].values:
-        # get the corresponding parent in column 0
-        parents = list(taxonomy[taxonomy[0] == label][2])
-        # add the parent to the list
-        # recursive call to get all the parents of the parent
-        parents += get_all_parents_from_main_label(parents, taxonomy)
-        return parents
-    else:
-        return []
+def get_all_parents_from_main_label(labels, taxonomy):
+    # Simon : I tried to guess how this was supposed to work. Is it correct?
+    result = []
+    taxonomy_values = taxonomy[0].values
+    for label in labels:
+        # check if the label is in the taxonomy DataFrame in column 0
+        if label in taxonomy_values:
+            # get the corresponding parent in column 0
+            parents = list(taxonomy[taxonomy[0] == label][2])
+            # recursive call to get all the parents of the parent
+            recu_call = get_all_parents_from_main_label(parents, taxonomy)
+            # Add the parents and the recursive call to the result
+            result = result + parents + recu_call
+    return result
 
 def get_all_relations(word, df_yago):
     # replace the space by "_" in the word
@@ -108,7 +109,7 @@ def get_words_and_derived(main_labels, derived=False):
     return all_main_labels
 
 def word2id(word):
-    with open('codes.csv', 'rt', encoding='utf-8') as codes:
+    with open(path_to_codes, 'rt', encoding='utf-8') as codes:
         for line in codes:
             split=line.lower().split('\n')[0].split(',')
             for w in split[1:]:
@@ -119,11 +120,12 @@ def word2id(word):
 
 def get_graph(word_to_encode):
     main_label = get_main_label(word_to_encode, df)
+    # Fail somewhat gracefully if the main label is not found
     if main_label is None:
         root_node = RootNode(txt=word_to_encode)
         graph = Graph(nodes=[root_node], root=root_node)
         return graph
-    main_labels = get_all_parents_from_main_label(main_label, taxonomy)
+    main_labels = get_all_parents_from_main_label([main_label], taxonomy)
     relations = get_all_relations(word_to_encode, df_facts)
     main_concept = set(get_words_and_derived(main_labels, False))
     leaf_nodes = set(get_words_and_derived(main_labels + relations, True)) & concepts
