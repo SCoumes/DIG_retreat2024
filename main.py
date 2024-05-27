@@ -14,5 +14,5 @@ def encodeConcept(toEncode : str) -> List[List[int]]:
     return getConceptEncoding(getGraphFromWord(toEncode))
 
 if __name__ == "__main__":
-    toEncode = input("Enter the concept to encode: ")
+    toEncode = input()
     print(encodeConcept(toEncode))
