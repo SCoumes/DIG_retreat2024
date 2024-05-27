@@ -13,3 +13,7 @@ def test_wordToInt():
 def test_encodeHardcoded():
     from main import encodeConcept
     assert(encodeConcept("Virus") == [[47, 97, 97, 97], [], [], [], []])
+
+def test_mainDoesntCrash():
+    from main import encodeConcept
+    encodeConcept("Brad Pitt")

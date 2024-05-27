@@ -1,6 +1,8 @@
 from typing import List
 
 from utils import hardcodedConcepts
+from getGraphFromWord import getGraphFromWord
+from getEncodingFromGraph import getConceptEncoding
 
 def encodeConcept(toEncode : str) -> List[List[int]]:
     """
@@ -10,7 +12,7 @@ def encodeConcept(toEncode : str) -> List[List[int]]:
     toEncode = toEncode.lower()
     if toEncode in hardcodedConcepts.keys():
         return hardcodedConcepts[toEncode]
-    return [] # TODO
+    return getConceptEncoding(getGraphFromWord(toEncode))
 
 if __name__ == "__main__":
     toEncode = input("Enter the concept to encode: ")
