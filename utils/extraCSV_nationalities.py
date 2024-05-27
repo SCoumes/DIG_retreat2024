@@ -1,3 +1,7 @@
+"""
+This standalone script is used to generate the CSV that associates nations to their ids and the dictionary that associates the ids to the colors of the flags of the nations.
+"""
+
 flagColor = dict()
 flagColor["Afghanistan"] = [112, 111, 116, 106]
 flagColor["Albania"] = [106, 112]
