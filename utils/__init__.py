@@ -1,2 +1,3 @@
 from utils.getNationalitySubconcepts import natioToConcept
 from utils.hardcodedConcepts import hardcodedConcepts
+from utils.wordToId import wordToId

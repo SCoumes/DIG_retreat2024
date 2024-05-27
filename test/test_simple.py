@@ -5,3 +5,7 @@ def test_encoderSimple():
     assert(len(encoding) == 2)
     assert(len(encoding[1]) == 2)
     assert(encoding[0][0] == 16)
+
+def test_wordToInt():
+    from utils import wordToId
+    assert(wordToId("Purple") == 115)
